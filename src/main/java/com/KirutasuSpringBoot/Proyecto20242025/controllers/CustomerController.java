@@ -2,6 +2,7 @@ package com.KirutasuSpringBoot.Proyecto20242025.controllers;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Customer;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -21,5 +22,15 @@ public class CustomerController {
     @GetMapping ("/clientes")
     public List<Customer> getCustomers() {
         return customers;
+    }
+
+    @GetMapping ("/clientes/{username}")
+    public Customer getCliente (@PathVariable String username) { // Algoritmo que nos permite encontrar un cliente (c) de acuerdo a su username
+        for (Customer c : customers) {
+            if (c.getUsername().equalsIgnoreCase(username)) {
+                return c;
+            }
+        }
+        return null; // ahora no nos preocupamos de la arquitectura o buenas practicas, se irá corrigiendo mas adelante, esto NO es una buena practica
     }
 }
