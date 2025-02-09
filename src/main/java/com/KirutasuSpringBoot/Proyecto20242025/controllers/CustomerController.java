@@ -1,9 +1,7 @@
 package com.KirutasuSpringBoot.Proyecto20242025.controllers;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Customer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,4 +31,11 @@ public class CustomerController {
         }
         return null; // ahora no nos preocupamos de la arquitectura o buenas practicas, se irá corrigiendo mas adelante, esto NO es una buena practica
     }
+
+    @PostMapping ("/clientes")
+    public Customer PostCliente (@RequestBody Customer customer) {
+        customers.add(customer);
+        return customer;
+    }
+
 }
