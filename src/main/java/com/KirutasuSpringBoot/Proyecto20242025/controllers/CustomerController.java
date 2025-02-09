@@ -33,9 +33,34 @@ public class CustomerController {
     }
 
     @PostMapping ("/clientes")
-    public Customer PostCliente (@RequestBody Customer customer) {
+    public Customer postCliente (@RequestBody Customer customer) {
         customers.add(customer);
         return customer;
+    }
+
+    @PutMapping ("/clientes")
+    public Customer putCliente (@RequestBody Customer customer) {
+        for (Customer c : customers) {
+            if (c.getId() == customer.getId()) {
+                c.setName(customer.getName());
+                c.setUsername(customer.getUsername());
+                c.setPassword(customer.getPassword());
+
+                return  c;
+            }
+        }
+        return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
+    }
+
+    @DeleteMapping ("/clientes/{id}")
+    public Customer deleteCliente (@PathVariable int id) {
+        for (Customer c : customers) {
+            if (c.getId() == id) {
+                customers.remove(c);
+                return c;
+            }
+        }
+        return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
 }
