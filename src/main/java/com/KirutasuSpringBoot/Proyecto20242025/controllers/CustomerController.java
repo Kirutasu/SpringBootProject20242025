@@ -1,6 +1,8 @@
 package com.KirutasuSpringBoot.Proyecto20242025.controllers;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Customer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,58 +22,65 @@ public class CustomerController {
 
     @GetMapping
     //@RequestMapping (method = RequestMethod.GET) // va a utilizar el mapeo de clase, y estamos informando que va a gestionar una solicitud del tipo GET. Alternativa usando el getmapping o requestmapping
-    public List<Customer> getCustomers() {
-        return customers;
+    public ResponseEntity <List<Customer>> getCustomers() {
+        return ResponseEntity.ok(customers);
     }
 
     @GetMapping ("/{username}")
     //@RequestMapping (value = "/{username}", method = RequestMethod.GET) //Validado para recibir parametro web. probando a aplicar RequestMapping a niveles metodo
-    public Customer getCliente (@PathVariable String username) { // Algoritmo que nos permite encontrar un cliente (c) de acuerdo a su username
+    public ResponseEntity <?> getCliente (@PathVariable String username) { // Algoritmo que nos permite encontrar un cliente (c) de acuerdo a su username todo se añade ? como posible devolucion porque no siempre se devolvera un "customer" (sirve para el codigo de error con body")
         for (Customer c : customers) {
             if (c.getUsername().equalsIgnoreCase(username)) {
-                return c;
+                return ResponseEntity.ok(c);
             }
         }
-        return null; // ahora no nos preocupamos de la arquitectura o buenas practicas, se irá corrigiendo mas adelante, esto NO es una buena practica
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado con username: " + username);
+        //return null; // ahora no nos preocupamos de la arquitectura o buenas practicas, se irá corrigiendo mas adelante, esto NO es una buena practica
     }
 
     @PostMapping
     //@RequestMapping (method = RequestMethod.POST)
-    public Customer postCliente (@RequestBody Customer customer) {
+    public ResponseEntity<?> postCliente (@RequestBody Customer customer) {
         customers.add(customer);
-        return customer;
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("El cliente con username: " + customer.getUsername()+ " fue creado con exito");
+        //return customer;
     }
 
     @PutMapping
     //@RequestMapping (method = RequestMethod.PUT)
-    public Customer putCliente (@RequestBody Customer customer) {
+    public ResponseEntity<?> putCliente (@RequestBody Customer customer) { // ? porque puede variar el retorno, al agregar un mensaje personalizado
         for (Customer c : customers) {
             if (c.getId() == customer.getId()) {
                 c.setName(customer.getName());
                 c.setUsername(customer.getUsername());
                 c.setPassword(customer.getPassword());
 
-                return  c;
+                return ResponseEntity.ok().body("Cliente modificado satisfactoriamente: " + customer.getId());
             }
         }
-        return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + customer.getId());
+        //return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
     @DeleteMapping ("/{id}")
     //@RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
-    public Customer deleteCliente (@PathVariable int id) {
+    public ResponseEntity<?> deleteCliente (@PathVariable int id) {
         for (Customer c : customers) {
             if (c.getId() == id) {
                 customers.remove(c);
-                return c;
+                return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                        .body("Cliente eliminado satisfactoriamente: " + id); //al ser sin contenido el mensaje no saldrá
             }
         }
-        return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + id);
+        //return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
     @PatchMapping
     // @RequestMapping (method = RequestMethod.PATCH)
-    public Customer patchCliente (@RequestBody Customer customer) {
+    public ResponseEntity<?> patchCliente (@RequestBody Customer customer) {
         for (Customer c : customers) {
             if (c.getId() == customer.getId()){ // comprobar que el ID que viene, coincida con uno en nuestra base de datos
 
@@ -86,10 +95,11 @@ public class CustomerController {
                 if (customer.getPassword() != null) {
                     c.setPassword(customer.getPassword());
                 }
-                return c;
+                return ResponseEntity.ok("Cliente modificado satisfactoriamente: " + customer.getId()); // id porque es inmutable
             }
         }
-        return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado con el id: " + customer.getId());
+        //return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
 }
