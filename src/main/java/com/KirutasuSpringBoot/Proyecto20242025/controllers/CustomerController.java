@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping ("/clientes")
 public class CustomerController {
 
     private List<Customer> customers = new ArrayList<>(Arrays.asList(
@@ -17,12 +18,14 @@ public class CustomerController {
             new Customer(234, "Carlos Martínez", "carlosm", "password234")
     ));
 
-    @GetMapping ("/clientes")
+    // @GetMapping
+    @RequestMapping (method = RequestMethod.GET) // va a utilizar el mapeo de clase, y estamos informando que va a gestionar una solicitud del tipo GET. Alternativa usando el getmapping o requestmapping
     public List<Customer> getCustomers() {
         return customers;
     }
 
-    @GetMapping ("/clientes/{username}")
+    // @GetMapping ("/{username}")
+    @RequestMapping (value = "/{username}", method = RequestMethod.GET) //Validado para recibir parametro web. probando a aplicar RequestMapping a niveles metodo
     public Customer getCliente (@PathVariable String username) { // Algoritmo que nos permite encontrar un cliente (c) de acuerdo a su username
         for (Customer c : customers) {
             if (c.getUsername().equalsIgnoreCase(username)) {
@@ -32,13 +35,15 @@ public class CustomerController {
         return null; // ahora no nos preocupamos de la arquitectura o buenas practicas, se irá corrigiendo mas adelante, esto NO es una buena practica
     }
 
-    @PostMapping ("/clientes")
+    // @PostMapping
+    @RequestMapping (method = RequestMethod.POST)
     public Customer postCliente (@RequestBody Customer customer) {
         customers.add(customer);
         return customer;
     }
 
-    @PutMapping ("/clientes")
+    // @PutMapping
+    @RequestMapping (method = RequestMethod.PUT)
     public Customer putCliente (@RequestBody Customer customer) {
         for (Customer c : customers) {
             if (c.getId() == customer.getId()) {
@@ -52,7 +57,8 @@ public class CustomerController {
         return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
-    @DeleteMapping ("/clientes/{id}")
+    //@DeleteMapping ("/{id}")
+    @RequestMapping (value = "/{id}", method = RequestMethod.DELETE)
     public Customer deleteCliente (@PathVariable int id) {
         for (Customer c : customers) {
             if (c.getId() == id) {
@@ -63,7 +69,8 @@ public class CustomerController {
         return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
-    @PatchMapping ("/clientes")
+    //@PatchMapping
+    @RequestMapping (method = RequestMethod.PATCH)
     public Customer patchCliente (@RequestBody Customer customer) {
         for (Customer c : customers) {
             if (c.getId() == customer.getId()){ // comprobar que el ID que viene, coincida con uno en nuestra base de datos
