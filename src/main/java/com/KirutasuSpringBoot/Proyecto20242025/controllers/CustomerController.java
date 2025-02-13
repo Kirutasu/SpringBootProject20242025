@@ -4,7 +4,9 @@ import com.KirutasuSpringBoot.Proyecto20242025.domain.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +45,16 @@ public class CustomerController {
     public ResponseEntity<?> postCliente (@RequestBody Customer customer) {
         customers.add(customer);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("El cliente con username: " + customer.getUsername()+ " fue creado con exito");
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest() // aqui obtenemos la URI base
+                .path("/{username}")  // aqui añadimos a la URL el parametro que es la variable que se utiliza
+                .buildAndExpand(customer.getUsername()) // toma el valor propocionado y lo inserta en el segmento de ruta (en este caso username)
+                .toUri(); // finaliza la construccion de la URI, que quedaría creada //todo todas las URL son URI pero no todas las URI son URL
+
+        return ResponseEntity.created(location).body(customer); //si quieres mostrar aquello creado, mejor praxis
+        //return ResponseEntity.created(location).build();  // solo trayendo el codigo 201 sin traer nada pero /todo con la URI en el header
+
+        // return ResponseEntity.status(HttpStatus.CREATED).body("El cliente con username: " + customer.getUsername()+ " fue creado con exito");
         //return customer;
     }
 
