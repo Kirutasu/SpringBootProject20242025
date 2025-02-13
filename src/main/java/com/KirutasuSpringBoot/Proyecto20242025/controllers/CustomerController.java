@@ -56,11 +56,12 @@ public class CustomerController {
                 c.setUsername(customer.getUsername());
                 c.setPassword(customer.getPassword());
 
-                return ResponseEntity.ok().body("Cliente modificado satisfactoriamente: " + customer.getId());
+                return ResponseEntity.noContent().build();
             }
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + customer.getId());
+        return ResponseEntity.notFound().build(); //simplificando codigo de respuesta HTTP
+        // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + customer.getId());
         //return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
@@ -70,11 +71,13 @@ public class CustomerController {
         for (Customer c : customers) {
             if (c.getId() == id) {
                 customers.remove(c);
-                return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                        .body("Cliente eliminado satisfactoriamente: " + id); //al ser sin contenido el mensaje no saldrá
+                return ResponseEntity.noContent().build(); //simplificando codigo de respuesta HTTP
+                // return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                //        .body("Cliente eliminado satisfactoriamente: " + id); //al ser sin contenido el mensaje no saldrá
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + id);
+        return ResponseEntity.notFound().build(); //simplificando codigo de respuesta HTTP (igualmente no saldrá el comentario en postman, dependerá de cada proyecto u ocasion
+        // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontrado: " + id);
         //return null; //TODO mala practica, pero no es el foco de este ejercicio concreto
     }
 
