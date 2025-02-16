@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-@Primary //Spring da prioridad a este servicio a la hora de existir mas de una implementacion
-@Service //bean de servicio
+// @Primary //Spring da prioridad a este servicio a la hora de existir mas de una implementacion
+@Service ("jsonResourceService") //bean de servicio
 public class ProductsServiceJSONImpl implements ProductService{
 
     @Override
