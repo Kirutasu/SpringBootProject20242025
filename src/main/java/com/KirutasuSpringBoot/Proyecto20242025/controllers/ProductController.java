@@ -1,5 +1,6 @@
 package com.KirutasuSpringBoot.Proyecto20242025.controllers;
 
+import com.KirutasuSpringBoot.Proyecto20242025.configurations.ExternalizedConfigurations;
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
 import com.KirutasuSpringBoot.Proyecto20242025.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,15 @@ public class ProductController {
                                                                 // y con polimorfismo dinamico podemos crear un objeto del tipo de la clase que implementa esta interfaz. Para escalabilidad
     //ProductsServiceImpl productsService = new ProductsServiceImpl();
 
+    @Autowired //Lista la inyeccion de dependencias de Configuration
+    private ExternalizedConfigurations externalizedConfigurations;
+
+
     @GetMapping
     public ResponseEntity<?> getProducts (){ // no va a retornar siempre la lista products, puede que necesite codigo de respuesta HTTP
+
+        System.out.println(externalizedConfigurations); //llamamos al metodo toString sobrescrito en configurations, para que al ejecutar este endpoint mostrará este override //todo muy basico pero para el objetivo actual sirve
+
         List<Product> products = productsService.getProducts();
 
         return ResponseEntity.ok(products); //en el body irá la lista products, ya con buenas practicas
