@@ -4,6 +4,7 @@ import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
 import com.KirutasuSpringBoot.Proyecto20242025.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class ProductController {
     @Autowired //el uso pasa a ser de Spring, mejorando que no haya un alto acomplamiento
     //@Qualifier ("jsonResourceService") // se inyecta aqui el bean del servicio exacto que queremos inyectar y priorizar. Tiene prioridad sobre Primary
     // se comenta Qualifier porque estamos usando ConditionalOnProperty por tanto está ya en application.properties
+    @Lazy
     private ProductService productsService;
     //Abajo Instancia de clase, sustituida por inyeccion (de campo) de dependencias mejor praxis
     //ProductService productsService = new ProductsServiceImpl(); // Modificamos para introducir el tipo de dato de la interfaz,
