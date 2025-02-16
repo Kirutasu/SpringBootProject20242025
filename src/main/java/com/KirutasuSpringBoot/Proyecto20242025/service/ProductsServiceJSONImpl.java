@@ -3,6 +3,7 @@ package com.KirutasuSpringBoot.Proyecto20242025.service;
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 // @Primary //Spring da prioridad a este servicio a la hora de existir mas de una implementacion
-@Service ("jsonResourceService") //bean de servicio
+@Service //("jsonResourceService") //bean de servicio //comento los () por uso de ConditionalOnProperty, que es donde está el nombre del servicio
+@ConditionalOnProperty(name = "service.products", havingValue = "json") //para priorizar que se ejecute este servicio. nombres descriptivos
 public class ProductsServiceJSONImpl implements ProductService{
 
     @Override
