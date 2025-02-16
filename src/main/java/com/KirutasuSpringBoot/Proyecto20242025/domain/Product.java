@@ -5,13 +5,13 @@ public class Product {
     // ya no usaremos los valores primitivos al generar los atributos de nuestro producto
     private Integer id;
     private String name;
-    private Double precio;
+    private Double price;
     private Integer stock;
 
-    public Product(Integer id, String name, Double precio, Integer stock) {
+    public Product(Integer id, String name, Double price, Integer stock) {
         this.id = id;
         this.name = name;
-        this.precio = precio;
+        this.price = price;
         this.stock = stock;
     }
 
@@ -31,12 +31,12 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Integer getStock() {

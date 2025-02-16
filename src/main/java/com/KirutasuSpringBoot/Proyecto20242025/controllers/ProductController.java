@@ -1,6 +1,7 @@
 package com.KirutasuSpringBoot.Proyecto20242025.controllers;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
+import com.KirutasuSpringBoot.Proyecto20242025.service.ProductService;
 import com.KirutasuSpringBoot.Proyecto20242025.service.ProductsServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,9 @@ import java.util.List;
 @RequestMapping ("/productos")
 public class ProductController {
 
-    ProductsServiceImpl productsService = new ProductsServiceImpl();
+    ProductService productsService = new ProductsServiceImpl(); // Modificamos para introducir el tipo de dato de la interfaz,
+                                                                // y con polimorfismo dinamico podemos crear un objeto del tipo de la clase que implementa esta interfaz. Para escalabilidad
+    //ProductsServiceImpl productsService = new ProductsServiceImpl();
 
     @GetMapping
     public ResponseEntity<?> getProducts (){ // no va a retornar siempre la lista products, puede que necesite codigo de respuesta HTTP

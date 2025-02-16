@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProductsServiceImpl {
+public class ProductsServiceImpl implements ProductService { // implementamos la interfaz, que incluye por contrato los metodos que aqui SI, se implementan (agregamos cuerpo/comportamiento)
 
 
     List<Product> products = new ArrayList<>(Arrays.asList(
@@ -16,6 +16,7 @@ public class ProductsServiceImpl {
             new Product(4, "Smartwatch", 199.99, 30)
     ));
 
+    @Override // no es sobreescribir como tal en este caso, pero es un comportamiento que no existe en la interfaz, es por buena praxis
     public List<Product> getProducts (){ // metodo que devuelve la lista de productos, pequeño servicio pero ya existente
         return products;
     }
