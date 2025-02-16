@@ -1,11 +1,13 @@
 package com.KirutasuSpringBoot.Proyecto20242025.service;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Service //indica a Spring que esto es un Bean de servicio. Spring almacena esto en su contenedor, para cuando creemos una dependencia e inyectarla, spring gestionará la creacion de instancias de esa clase
 public class ProductsServiceImpl implements ProductService { // implementamos la interfaz, que incluye por contrato los metodos que aqui SI, se implementan (agregamos cuerpo/comportamiento)
 
 
