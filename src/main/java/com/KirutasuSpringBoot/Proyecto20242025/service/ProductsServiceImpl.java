@@ -1,12 +1,14 @@
 package com.KirutasuSpringBoot.Proyecto20242025.service;
 
 import com.KirutasuSpringBoot.Proyecto20242025.domain.Product;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// @Primary NO quiero que sea este el servicio que se ejecute en este momento
 @Service //indica a Spring que esto es un Bean de servicio. Spring almacena esto en su contenedor, para cuando creemos una dependencia e inyectarla, spring gestionará la creacion de instancias de esa clase
 public class ProductsServiceImpl implements ProductService { // implementamos la interfaz, que incluye por contrato los metodos que aqui SI, se implementan (agregamos cuerpo/comportamiento)
 

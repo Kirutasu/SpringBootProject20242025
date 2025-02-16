@@ -8,6 +8,9 @@ public class Product {
     private Double price;
     private Integer stock;
 
+    public Product() { //Constructor vacío que añadimos para que la biblioteca Jackson pueda deserializar el archivo Json, utilizando esto y luego los metodos Setters
+    }
+
     public Product(Integer id, String name, Double price, Integer stock) {
         this.id = id;
         this.name = name;
