@@ -21,15 +21,15 @@ Arquitectura
 
 Estructura
 /src/main
--configurations
--controllers
--domain
--service
+- configurations
+- controllers
+- domain
+- service
 /resources
--application.properties
--products.json
+- application.properties
+- products.json
 
-Endpoints (ejemplo)
+Endpoints incluidos
 GET clientes
 GET clientes by username
 POST cliente
