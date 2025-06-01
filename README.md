@@ -20,17 +20,14 @@ Arquitectura
 - Persistencia con JPA
 
 Estructura
-/src
-└── main
-└── java
-└── com.example.project
-└── controllers
-└── models
-└── repositories
-└── services
-└── Application.java
-└── resources
-└── application.properties
+/src/main
+-configurations
+-controllers
+-domain
+-service
+/resources
+-application.properties
+-products.json
 
 Endpoints (ejemplo)
 GET clientes
